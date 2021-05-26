@@ -3,6 +3,8 @@ const username = 'hjrandolph';
 const repoList = document.querySelector(".repo-list");
 const reposSection = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const btn = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 
 
 const getUser = async function(){
@@ -17,8 +19,9 @@ getUser();
 
 const displayUser = function(user){
     const userInfo = document.createElement("div");
+    userInfo.classList.add("user-info");
     userInfo.innerHTML = `<figure>
-    <img alt="" src=${user.avatar_url} />
+    <img alt="user avatar" src=${user.avatar_url} />
     </figure>
     <div>
         <p><strong>Name:</strong> ${user.name}</p>
@@ -26,12 +29,12 @@ const displayUser = function(user){
         <p><strong>Location:</strong> ${user.location}</p>
         <p><strong>Number of public repos:</strong> ${user.public_repos}</p>
     </div>`;
-    overview.appendChild(userInfo);
+    overview.append(userInfo);
     fetchRepos();
 };
 
 const fetchRepos = async function(){
-    const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=12`);
+    const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
     const repos = await res.json();
     console.log(repos);
     displayRepos(repos)
@@ -79,15 +82,13 @@ const displaySpecificRepo = function(repoInfo, languages){
     <p>Languages: ${languages.join(', ')} </p>
     <a class="visit" href="${repoInfo.html_url}" target="_blank" re'="noreferrer noopener">View repo on GitHub!</a>`;
     repoData.append(repo);
+    reposSection.classList.add("hide");
     repoData.classList.remove("hide");
+    btn.classList.remove("hide");
 };
 
-//     Create a new div element and add the selected repository's name, description, default branch, and link to its code on GitHub. 
-// The div structure will look like this:
-
-	
-// <h3>Name: ${}</h3>
-//     <p>Description: ${}</p>
-//     <p>Default Branch: ${}</p>
-//     <p>Languages: ${languages.join(", ")}</p>
-//     <a class="visit" href="${}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
+btn.addEventListener("click", function(e){
+    reposSection.classList.remove("hide");
+    repoData.classList.add("hide");
+    btn.classList.add("hide");
+});
