@@ -49,7 +49,7 @@ const displayRepos = function(repos){
     }
 };
 
-
+// Listen for click on repo name.
 repoList.addEventListener("click", function(e){
     if (e.target.matches("h3")){
         const repoName = e.target.innerText;
@@ -80,7 +80,7 @@ const displaySpecificRepo = function(repoInfo, languages){
     <p>Description: ${repoInfo.description}</p>
     <p>Default Branch: ${repoInfo.default_branch}</p>
     <p>Languages: ${languages.join(', ')} </p>
-    <a class="visit" href="${repoInfo.html_url}" target="_blank" re'="noreferrer noopener">View repo on GitHub!</a>`;
+    <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View repo on GitHub!</a>`;
     repoData.append(repo);
     reposSection.classList.add("hide");
     repoData.classList.remove("hide");
