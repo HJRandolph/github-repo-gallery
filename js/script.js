@@ -32,6 +32,7 @@ const displayUser = function(user){
     fetchRepos();
 };
 
+// Fetch repos
 const fetchRepos = async function(){
     const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
     const repos = await res.json();
